@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>js-synth</title>
+    <script src="js-synth.js"></script>
+</head>
+<body>
+<h1>js-synth</h1>
+<p>
+    <label for="preset">Preset</label>
+    <select id="preset" onchange="jsSynth.selectPreset(this.value)">
+        <script>
+            Object.keys(jsSynth.getPresets()).forEach((preset, index) => {
+                document.writeln(`<option>${preset}</option>`);
+            });
+        </script>
+    </select>
+</p>
+<p>
+    <label for="master-volume">Master volume</label>
+    <input id="master-volume"
+           type="range"
+           min="0"
+           max="1"
+           step="0.01"
+           value="0.25"
+           onchange="jsSynth.setMasterVolume(this.value)"
+    />
+</p>
+<script>
+    jsSynth.selectPreset(document.getElementById('preset').value);
+    jsSynth.setMasterVolume(document.getElementById('master-volume').value);
+    jsSynth.attachKeyboard();
+    jsSynth.start();
+</script>
+</body>
+</html>
