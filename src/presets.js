@@ -5,14 +5,21 @@ export const presets = {
         tuning: {
             type: 'Tuning',
             routing: [
-                'detuner',
-                'saw1.freq'
+                'detuner1',
+                'detuner2'
             ],
         },
-        detuner: {
+        detuner1: {
             type: 'Multiplier',
             config: [
-                nodeType_tuning.centsToRatio(12.5)
+                nodeType_tuning.centsToRatio(-6.25)
+            ],
+            routing: 'saw1.freq'
+        },
+        detuner2: {
+            type: 'Multiplier',
+            config: [
+                nodeType_tuning.centsToRatio(6.25)
             ],
             routing: 'saw2.freq'
         },
