@@ -46,6 +46,51 @@ export const presets = {
             }
         }
     },
+    detunedPulse: {
+        tuning: {
+            type: 'Tuning',
+            routing: [
+                'detuner1',
+                'detuner2'
+            ],
+        },
+        detuner1: {
+            type: 'Multiplier',
+            config: [
+                nodeType_tuning.centsToRatio(-6.25)
+            ],
+            routing: 'pulse1.freq'
+        },
+        detuner2: {
+            type: 'Multiplier',
+            config: [
+                nodeType_tuning.centsToRatio(6.25)
+            ],
+            routing: 'pulse2.freq'
+        },
+        pulse1: {
+            type: 'Pulse',
+            routing: 'mixer'
+        },
+        pulse2: {
+            type: 'Pulse',
+            routing: 'mixer'
+        },
+        mixer: {
+            type: 'Mixer',
+            routing: 'adsr.signal'
+        },
+        adsr: {
+            type: 'Adsr',
+            config: {
+                attack: 0.015,
+                decay: 0.01,
+                sustain: 0.75,
+                release: 0.4,
+                sustainMode: true
+            }
+        }
+    },
     hammond: {
         tuning: {
             type: 'Tuning',
