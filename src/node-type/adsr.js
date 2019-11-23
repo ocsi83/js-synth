@@ -25,7 +25,7 @@ export const nodeType_adsr = {
                     this.mode = this.input.sustainMode ? 'on' : 'off';
                     break;
                 case 'note_off':
-                    if (!this.input.sustainMode) {
+                    if ('off' === this.mode) {
                         break;
                     }
 
