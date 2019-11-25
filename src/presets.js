@@ -42,7 +42,7 @@ export const presets = {
                 decay: 0.01,
                 sustain: 0.75,
                 release: 0.4,
-                sustainMode: true
+                enableSustain: true
             }
         }
     },
@@ -87,7 +87,7 @@ export const presets = {
                 decay: 0.01,
                 sustain: 0.75,
                 release: 0.4,
-                sustainMode: true
+                enableSustain: true
             }
         }
     },
@@ -137,7 +137,7 @@ export const presets = {
                 decay: 0.0,
                 sustain: 1,
                 release: 0.5,
-                sustainMode: true
+                enableSustain: true
             }
         }
     },

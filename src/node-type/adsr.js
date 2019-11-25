@@ -6,7 +6,7 @@ export const nodeType_adsr = {
             decay: 0,
             sustain: 1,
             release: 0,
-            sustainMode: true
+            enableSustain: true
         }, config ? config : {}),
 
         deactivateCallback: null,
@@ -21,16 +21,14 @@ export const nodeType_adsr = {
 
             switch (message.message) {
                 case 'note_on':
-                    this.releaseTime = this.input.sustainMode ? null : time;
-                    this.mode = this.input.sustainMode ? 'on' : 'off';
+                    this.releaseTime = this.input.enableSustain ? null : time;
+                    this.mode = this.input.enableSustain ? 'on' : 'off';
                     break;
                 case 'note_off':
-                    if ('off' === this.mode) {
-                        break;
+                    if ('off' !== this.mode) {
+                        this.mode = 'off';
+                        this.releaseTime = time;
                     }
-
-                    this.mode = 'off';
-                    this.releaseTime = time;
             }
         },
 
