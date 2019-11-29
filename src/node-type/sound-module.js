@@ -1,4 +1,4 @@
-import {nodeType_base} from "./base";
+import {nodeType_base} from "../mixin/base";
 
 let configKeyCache;
 
