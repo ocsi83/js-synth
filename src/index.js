@@ -1,20 +1,19 @@
-window.registry = {};
+import {keymap} from './keymap';
+import {presets} from './presets'
+import {soundModule} from './sound-module';
 
+self.registry = {};
 const req = require.context('./node-type', true,  /\.js$/);
 req.keys().forEach(file => {
     const module = req(file);
     Object.keys(module).forEach(key => {
-        window.registry[key] = module[key];
+        self.registry[key] = module[key];
     });
 });
 
-import {keymap} from './keymap';
-import {presets} from './presets'
-
 const
-    audioContext = new window.AudioContext(),
-    messageQueue = [],
-    createModule = (config) => window.registry['nodeType_soundModule'].create(config, messageQueue);
+    audioContext = new self.AudioContext(),
+    messageQueue = [];
 
 let
     currentModule,
@@ -25,7 +24,7 @@ export function getPresets() {
 }
 
 export function selectPreset(preset) {
-    currentModule = createModule(presets[preset]);
+    currentModule = soundModule.create(presets[preset], messageQueue);
 }
 
 /**
@@ -100,7 +99,8 @@ export function start() {
         for (let i = 0; i < outputLength; i++) {
             const time = sampleIndex / audioContext.sampleRate;
             currentModule.tick(time);
-            output[i] = currentModule.getOutput() * masterVolume;
+            const sample = currentModule.getOutput() * masterVolume;
+            output[i] = sample > 1 ? 1 : sample < -1 ? -1 : sample;
 
             sampleIndex++;
         }
